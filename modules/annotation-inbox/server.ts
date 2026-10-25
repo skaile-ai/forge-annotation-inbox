@@ -1,5 +1,5 @@
 /**
- * `@ecsplico/annotation-inbox/server` — the route table without a framework.
+ * `@skaile/forge-annotation-inbox/server` — the route table without a framework.
  *
  * `handleInboxRequest` turns `{ method, url, body, principal }` into
  * `{ status, headers, body }`; a host on Express, Hono, a Worker or plain

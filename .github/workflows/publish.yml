@@ -1,8 +1,8 @@
-# Publishes @ecsplico/annotation-inbox at the version in package.json to npmjs when a
-# `v*` tag is pushed:  git tag v1.0.0 && git push origin v1.0.0
+# Publishes @skaile/forge-annotation-inbox at the version in package.json to npmjs when a
+# `v*` tag is pushed:  git tag v2.0.0 && git push origin v2.0.0
 #
 # npmjs needs the repository secret NPM_TOKEN (a token with publish rights on the
-# @ecsplico scope); the run fails before publishing anything when it is missing.
+# @skaile scope); the run fails before publishing anything when it is missing.
 name: publish
 
 on:

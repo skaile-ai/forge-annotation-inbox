@@ -1,12 +1,12 @@
 {
-  "name": "@ecsplico/annotation-inbox",
-  "version": "1.1.1",
+  "name": "@skaile/forge-annotation-inbox",
+  "version": "2.0.0",
   "type": "module",
   "description": "Annotation toolbar whose notes reach coding agents with SFC source locations: framework-free core, Nuxt module, Vite plugin, HTTP and MCP surface",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skaile-ai/annotation-inbox.git"
+    "url": "git+https://github.com/skaile-ai/forge-annotation-inbox.git"
   },
   "keywords": [
     "nuxt",
@@ -130,5 +130,9 @@
     "unplugin-vue": "^8.0.0",
     "vitest": "^5.0.0",
     "vue-tsc": "^3.1.8"
+  },
+  "homepage": "https://github.com/skaile-ai/forge-annotation-inbox#readme",
+  "bugs": {
+    "url": "https://github.com/skaile-ai/forge-annotation-inbox/issues"
   }
 }

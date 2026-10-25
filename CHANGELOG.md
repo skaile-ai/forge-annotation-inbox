@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 2.0.0
+
+Renamed from `@ecsplico/annotation-inbox`; repository moved to `skaile-ai/forge-annotation-inbox`.
+Replace the dependency and every import specifier (`@ecsplico/annotation-inbox/…` →
+`@skaile/forge-annotation-inbox/…`); the API is unchanged.
 
 ### Changed
 

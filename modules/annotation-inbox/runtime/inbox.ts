@@ -58,7 +58,7 @@ let baseResolver: AnnotationInboxBaseResolver | null = null
  * after the toolbar mounts — and a host that never calls it gets one inbox,
  * the module's `base`, exactly as before.
  *
- * It lives in this file, reachable as `@ecsplico/annotation-inbox/mount`, and
+ * It lives in this file, reachable as `@skaile/forge-annotation-inbox/mount`, and
  * nothing here names the toolbar library, so a host plugin importing it adds a
  * few lines to a reader who is never allowed to annotate and none of the
  * toolbar.

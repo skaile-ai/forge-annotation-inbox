@@ -5,7 +5,7 @@ import type { InboxAnnotation, InboxPayload } from './contract.ts'
 import type { Inbox } from './inbox.ts'
 
 /**
- * `@ecsplico/annotation-inbox/testing` — the storage behaviour suite.
+ * `@skaile/forge-annotation-inbox/testing` — the storage behaviour suite.
  *
  * The inbox reads and writes only through unstorage, so a host that mounts a
  * driver other than the filesystem (db0/SQLite, Redis, …) under

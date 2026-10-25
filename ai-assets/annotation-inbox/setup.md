@@ -9,10 +9,10 @@
 - [Deployment](#deployment)
 - [Finish on evidence](#finish-on-evidence)
 
-Package `@ecsplico/annotation-inbox` on npmjs (no token needed), repository
-`github.com/skaile-ai/annotation-inbox`. The README is the recipe and the single source for
+Package `@skaile/forge-annotation-inbox` on npmjs (no token needed), repository
+`github.com/skaile-ai/forge-annotation-inbox`. The README is the recipe and the single source for
 every command; read it once the package is installed
-(`node_modules/@ecsplico/annotation-inbox/README.md`) rather than reconstructing steps from
+(`node_modules/@skaile/forge-annotation-inbox/README.md`) rather than reconstructing steps from
 here. Reference consumers, each running the branches below: `boje-designstudy` (Nuxt,
 Storybook, deployment) and `youtube-knowledge` (plain Vite, vanilla JS + lit-html).
 
@@ -21,7 +21,7 @@ migrates to the 1.x Nuxt *module* by swapping the dependency and every import sp
 
 ## Install
 
-`npm i -D @ecsplico/annotation-inbox`, and add `.data/` to `.gitignore` — the notes are as
+`npm i -D @skaile/forge-annotation-inbox`, and add `.data/` to `.gitignore` — the notes are as
 ephemeral as the browser session they were made in and are never committed.
 
 Host frameworks are optional peers: install the one the entry you import needs (`nuxt` +
@@ -35,7 +35,7 @@ Wire only the surfaces the project has.
 One line in `nuxt.config.ts` and nothing else:
 
 ```ts
-modules: ['@ecsplico/annotation-inbox/nuxt']
+modules: ['@skaile/forge-annotation-inbox/nuxt']
 ```
 
 The module (options `token`, `base`, `dir`, `authorize`, all optional) registers the
@@ -49,7 +49,7 @@ wired by hand and serves the route itself. In `.storybook/main.ts`, inside `vite
 
 ```ts
 import { VueTracer } from 'vite-plugin-vue-tracer'
-import { annotationInbox } from '@ecsplico/annotation-inbox/vite'
+import { annotationInbox } from '@skaile/forge-annotation-inbox/vite'
 
 plugins: [vue(), VueTracer(), annotationInbox({ endpoint: true })],
 ```
@@ -62,7 +62,7 @@ equivalent line.
 In `.storybook/preview.ts`:
 
 ```ts
-import { mountAnnotationToolbar } from '@ecsplico/annotation-inbox/mount'
+import { mountAnnotationToolbar } from '@skaile/forge-annotation-inbox/mount'
 
 setup(() => mountAnnotationToolbar())
 ```
@@ -78,9 +78,9 @@ pieces whose absence each breaks something:
 
 - an ESM `vite.config.mjs` (the `/vite` export is ESM-only);
 - a serve-only `@vitejs/plugin-vue` for the toolbar's own `.vue` files;
-- `optimizeDeps.exclude: ['@ecsplico/annotation-inbox']` (else two Vues: `Cannot read
+- `optimizeDeps.exclude: ['@skaile/forge-annotation-inbox']` (else two Vues: `Cannot read
   properties of null (reading 'ce')`);
-- a mount behind `if (import.meta.env.DEV) import('@ecsplico/annotation-inbox/mount')…` in
+- a mount behind `if (import.meta.env.DEV) import('@skaile/forge-annotation-inbox/mount')…` in
   the app's entry, so the build carries none of it.
 
 The README's *A plain Vite app* section has the code; copy it from there. Deployment does

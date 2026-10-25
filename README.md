@@ -1,4 +1,4 @@
-# @ecsplico/annotation-inbox
+# @skaile/forge-annotation-inbox
 
 A Nuxt 4 module that turns "this button sits too low" into a file in your working copy, with
 the line of the SFC that draws the button. Storybook and plain Vite apps without Nuxt or
@@ -51,13 +51,13 @@ instead.
 ## Install
 
 ```bash
-npm i -D @ecsplico/annotation-inbox
+npm i -D @skaile/forge-annotation-inbox
 ```
 
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['@ecsplico/annotation-inbox/nuxt'],
+  modules: ['@skaile/forge-annotation-inbox/nuxt'],
 })
 ```
 
@@ -70,7 +70,7 @@ not a layer.
 Module options, all optional, under `annotationInbox` or as the module's tuple form:
 
 ```ts
-modules: [['@ecsplico/annotation-inbox/nuxt', {
+modules: [['@skaile/forge-annotation-inbox/nuxt', {
   token: '',              // shared agent secret; NUXT_ANNOTATION_INBOX_TOKEN overrides it at runtime
   base: '/__annotations', // where the routes are mounted
   dir: '.data/annotations', // the default filesystem store
@@ -115,7 +115,7 @@ hand — two lines in `.storybook/main.ts`:
 
 ```ts
 import { VueTracer } from 'vite-plugin-vue-tracer'
-import { annotationInbox } from '@ecsplico/annotation-inbox/vite'
+import { annotationInbox } from '@skaile/forge-annotation-inbox/vite'
 
 // in viteFinal's mergeConfig:
 plugins: [vue(), ...(process.env.VITEST ? [] : [VueTracer(), annotationInbox({ endpoint: true })])],
@@ -124,7 +124,7 @@ plugins: [vue(), ...(process.env.VITEST ? [] : [VueTracer(), annotationInbox({ e
 and one in `.storybook/preview.ts`:
 
 ```ts
-import { mountAnnotationToolbar } from '@ecsplico/annotation-inbox/mount'
+import { mountAnnotationToolbar } from '@skaile/forge-annotation-inbox/mount'
 
 setup(() => mountAnnotationToolbar())
 ```
@@ -160,10 +160,10 @@ lit-html + Web Awesome, Vite 8, an Express API behind Vite's proxy), installed f
 // vite.config.mjs
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { annotationInbox } from '@ecsplico/annotation-inbox/vite'
+import { annotationInbox } from '@skaile/forge-annotation-inbox/vite'
 
 export default defineConfig({
-  optimizeDeps: { exclude: ['@ecsplico/annotation-inbox'] },
+  optimizeDeps: { exclude: ['@skaile/forge-annotation-inbox'] },
   plugins: [
     annotationInbox({ endpoint: true }),
     { ...vue(), apply: 'serve' },
@@ -175,7 +175,7 @@ export default defineConfig({
 ```js
 // the app's entry, after it has mounted itself
 if (import.meta.env.DEV) {
-  import('@ecsplico/annotation-inbox/mount').then(({ mountAnnotationToolbar }) => mountAnnotationToolbar())
+  import('@skaile/forge-annotation-inbox/mount').then(({ mountAnnotationToolbar }) => mountAnnotationToolbar())
 }
 ```
 
@@ -282,7 +282,7 @@ behind its own auth, say — registers a resolver from a client plugin:
 
 ```ts
 // app/plugins/annotation-inbox.client.ts
-import { setAnnotationInboxBaseResolver } from '@ecsplico/annotation-inbox/mount'
+import { setAnnotationInboxBaseResolver } from '@skaile/forge-annotation-inbox/mount'
 
 export default defineNuxtPlugin(() => {
   setAnnotationInboxBaseResolver((pageUrl) => {
@@ -354,12 +354,12 @@ Two tools, named like the skill's vocabulary:
   `rejected` without a `resolution` is refused, as the skill requires.
 
 **In a `@skaile/workspaces` project** the server ships as an asset, `mcp/annotation-inbox/MCP.md`
-(kind `mcp-server`). Add `@ecsplico/annotation-inbox` to the project's dependencies, then
+(kind `mcp-server`). Add `@skaile/forge-annotation-inbox` to the project's dependencies, then
 either list this repository under `sources:` in `skaile.yaml` and depend on the asset:
 
 ```yaml
 sources:
-  - url: https://github.com/skaile-ai/annotation-inbox
+  - url: https://github.com/skaile-ai/forge-annotation-inbox
 dependencies:
   - mcp-server:annotation-inbox
 ```
@@ -371,7 +371,7 @@ mcp_servers:
   - id: annotation-inbox
     transport: stdio
     command: node
-    args: ["${workspace}/node_modules/@ecsplico/annotation-inbox/dist/mcp.mjs"]
+    args: ["${workspace}/node_modules/@skaile/forge-annotation-inbox/dist/mcp.mjs"]
     env:
       ANNOTATION_INBOX_ROOT: "${workspace}"
 ```
@@ -387,7 +387,7 @@ server, which is why the root is passed as an environment variable.
   "mcpServers": {
     "annotation-inbox": {
       "command": "node",
-      "args": ["node_modules/@ecsplico/annotation-inbox/dist/mcp.mjs"]
+      "args": ["node_modules/@skaile/forge-annotation-inbox/dist/mcp.mjs"]
     }
   }
 }
@@ -396,7 +396,7 @@ server, which is why the root is passed as an environment variable.
 **From your own Node tool**, skip the protocol and open the inbox directly:
 
 ```ts
-import { openFileInbox } from '@ecsplico/annotation-inbox/inbox'
+import { openFileInbox } from '@skaile/forge-annotation-inbox/inbox'
 
 const inbox = openFileInbox('/path/to/project')
 const open = await inbox.list({ status: 'open' })
@@ -438,7 +438,7 @@ were asked to change, instead of (or next to) the toolbar. It has no UI-kit depe
 
 ```vue
 <script setup lang="ts">
-import { AnnotationList, useAnnotations } from '@ecsplico/annotation-inbox/vue'
+import { AnnotationList, useAnnotations } from '@skaile/forge-annotation-inbox/vue'
 
 const annotations = useAnnotations({
   list: '/__annotations',              // string, or () => string for a reactive endpoint
@@ -510,8 +510,8 @@ Import the sheets once — the defaults are declared under `:where(:root)`, so r
 ```ts
 // nuxt.config.ts
 css: [
-  '@ecsplico/annotation-inbox/styles/tokens.css',
-  '@ecsplico/annotation-inbox/vue.css',   // the list's own rules; they carry fallbacks too
+  '@skaile/forge-annotation-inbox/styles/tokens.css',
+  '@skaile/forge-annotation-inbox/vue.css',   // the list's own rules; they carry fallbacks too
 ],
 ```
 
@@ -597,9 +597,9 @@ stopped. It ships `scripts/wait-for-notes.sh`, the poller the dispatcher blocks 
 Wiring them up in a consuming project is one of:
 
 ```
-npx skills add skaile-ai/annotation-inbox
-ln -s ../../node_modules/@ecsplico/annotation-inbox/ai-assets/annotation-inbox .claude/skills/annotation-inbox
-ln -s ../../node_modules/@ecsplico/annotation-inbox/ai-assets/annotation-watch .claude/skills/annotation-watch
+npx skills add skaile-ai/forge-annotation-inbox
+ln -s ../../node_modules/@skaile/forge-annotation-inbox/ai-assets/annotation-inbox .claude/skills/annotation-inbox
+ln -s ../../node_modules/@skaile/forge-annotation-inbox/ai-assets/annotation-watch .claude/skills/annotation-watch
 ```
 
 A symlink keeps the manuals in step with the package on every update; a copy is fine if

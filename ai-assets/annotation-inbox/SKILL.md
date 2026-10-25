@@ -82,7 +82,7 @@ In omp with the package's extension installed, they are plain tools (no `mcp__` 
 
 ## Mechanism questions
 
-The package README (`node_modules/@ecsplico/annotation-inbox/README.md`) is the single
+The package README (`node_modules/@skaile/forge-annotation-inbox/README.md`) is the single
 source for every recipe and for what only some projects need: *Deploying it* (agent token,
 `annotation-inbox:authorize` hook, containers), *Storage* (SQLite under the inbox),
 *An MCP server over the inbox* (skaile workspace or Claude Code), how a browser tab becomes
