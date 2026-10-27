@@ -1,6 +1,6 @@
 {
   "name": "@skaile/forge-annotation-inbox",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "module",
   "description": "Annotation toolbar whose notes reach coding agents with SFC source locations: framework-free core, Nuxt module, Vite plugin, HTTP and MCP surface",
   "license": "MIT",

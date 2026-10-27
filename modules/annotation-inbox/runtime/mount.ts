@@ -5,7 +5,9 @@
 // effect rather than relying on the host's config to have done it.
 
 import { inboxRoutes } from '../contract'
+import type { ToolbarPlacement } from '../contract'
 import { installAnnotationInbox } from './inbox'
+import { applyToolbarPlacement } from './placement'
 
 /**
  * The host's say in which inbox a note lands. Re-exported here so a Storybook
@@ -14,6 +16,21 @@ import { installAnnotationInbox } from './inbox'
  */
 export { setAnnotationInboxBaseResolver } from './inbox'
 export type { AnnotationInboxBaseResolver } from './inbox'
+export { TOOLBAR_PLACEMENTS } from '../contract'
+export type { ToolbarPlacement } from '../contract'
+
+/** What a host may say about the toolbar it mounts. */
+export interface AnnotationToolbarOptions {
+  /** The module's inbox route. Default `/__annotations`. */
+  base?: string
+  /**
+   * Where the collapsed toggle sits until the user picks a placement in the
+   * toolbar's settings panel; a stored pick always wins. Unset: the library's
+   * default, `'bottom-right'`. Anything that is not one of
+   * {@link TOOLBAR_PLACEMENTS} is ignored, with a warning in a dev build.
+   */
+  toolbarPlacement?: ToolbarPlacement
+}
 
 /**
  * The annotation toolbar — apparatus for the *developer*, not the reader, and
@@ -49,7 +66,7 @@ export type { AnnotationInboxBaseResolver } from './inbox'
  * downloads none of it. The rule is held by a test (this package's
  * `test/locks.spec.ts`) rather than by habit.
  */
-export function mountAnnotationToolbar(options: { base?: string } = {}): void {
+export function mountAnnotationToolbar(options: AnnotationToolbarOptions = {}): void {
   const routes = inboxRoutes(options.base)
   /*
    * Only where a human is actually looking at the page — and, outside a dev
@@ -174,7 +191,7 @@ export function mountAnnotationToolbar(options: { base?: string } = {}): void {
 
     const [
       { createApp },
-      { AgentationVue, setAnnotationStorage, setVueDetector, formatAnnotations, useAnnotations },
+      { AgentationVue, setAnnotationStorage, setSettingsStorage, setVueDetector, formatAnnotations, useAnnotations },
       { default: agentationCss },
       { findTraceFromElement },
     ] = await Promise.all([
@@ -198,6 +215,10 @@ export function mountAnnotationToolbar(options: { base?: string } = {}): void {
       // it — which is also the acknowledgement the server waits for.
       removeAnnotation: useAnnotations().removeAnnotation,
     }, { base: options.base })
+
+    // Also before the mount, so the toggle's first render is already at the
+    // host's placement rather than moving there afterwards.
+    applyToolbarPlacement(setSettingsStorage, options.toolbarPlacement)
 
     const style = document.createElement('style')
     style.textContent = agentationCss

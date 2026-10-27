@@ -87,6 +87,23 @@ export const INBOX_POLL_MS = 10_000
 export const AGENTATION_STORAGE_KEY = 'agentation-vue-annotations'
 
 /**
+ * The anchors the toolbar's collapsed toggle can sit at: agentation-vue's
+ * `ToolbarAnchor` (0.3.0), spelled out here so a host's option can be checked
+ * without loading the library. The library's own default is `'bottom-right'`.
+ */
+export const TOOLBAR_PLACEMENTS = [
+  'top-left',
+  'top-center',
+  'top-right',
+  'bottom-left',
+  'bottom-center',
+  'bottom-right',
+] as const
+
+/** One of {@link TOOLBAR_PLACEMENTS}. */
+export type ToolbarPlacement = typeof TOOLBAR_PLACEMENTS[number]
+
+/**
  * The toolbar package, named here because the dev server has to keep Vite's
  * dependency optimiser away from it.
  *

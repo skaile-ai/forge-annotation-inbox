@@ -1,6 +1,7 @@
 import { addPlugin, addServerHandler, addTypeTemplate, addVitePlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
 import type { NuxtModule } from '@nuxt/schema'
-import { INBOX_DIR, INBOX_ROUTE, INBOX_STORAGE_MOUNT } from '../modules/annotation-inbox/contract'
+import { INBOX_DIR, INBOX_ROUTE, INBOX_STORAGE_MOUNT, TOOLBAR_PLACEMENTS } from '../modules/annotation-inbox/contract'
+import type { ToolbarPlacement } from '../modules/annotation-inbox/contract'
 import { annotationInbox } from '../modules/annotation-inbox/vite'
 
 /** What `modules: [['@skaile/forge-annotation-inbox/nuxt', options]]` (or the `annotationInbox` key) accepts. */
@@ -21,6 +22,13 @@ export interface ModuleOptions {
    * hook always, development included.
    */
   authorize?: 'dev' | 'hook'
+  /**
+   * Where the toolbar's collapsed toggle sits until the user picks a placement
+   * in the toolbar's settings panel; a stored pick always wins. Unset: the
+   * toolbar's default, `'bottom-right'`. An unknown value is ignored with a
+   * warning in the browser console of a dev build.
+   */
+  toolbarPlacement?: ToolbarPlacement
 }
 
 /**
@@ -98,6 +106,7 @@ const annotationInboxModule: NuxtModule<ModuleOptions> = defineNuxtModule<Module
     // handler reads the same value so the two cannot disagree.
     nuxt.options.runtimeConfig.public.annotationInbox = {
       base,
+      ...(options.toolbarPlacement === undefined ? {} : { toolbarPlacement: options.toolbarPlacement }),
       ...(nuxt.options.runtimeConfig.public.annotationInbox as Record<string, unknown> | undefined),
     }
 
@@ -162,7 +171,7 @@ declare module 'nuxt/schema' {
     annotationInbox: { token: string, authorize: 'dev' | 'hook' }
   }
   interface PublicRuntimeConfig {
-    annotationInbox: { base: string }
+    annotationInbox: { base: string, toolbarPlacement?: ${TOOLBAR_PLACEMENTS.map(anchor => `'${anchor}'`).join(' | ')} }
   }
 }
 

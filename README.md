@@ -75,14 +75,23 @@ modules: [['@skaile/forge-annotation-inbox/nuxt', {
   base: '/__annotations', // where the routes are mounted
   dir: '.data/annotations', // the default filesystem store
   authorize: 'dev',       // 'hook': ask annotation-inbox:authorize even under `nuxt dev`
+  toolbarPlacement: 'bottom-left', // where the toggle starts; unset: 'bottom-right'
 }]]
 ```
+
+`toolbarPlacement` is the collapsed toggle's *default* anchor: one of `top-left`,
+`top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`. Set it when the
+toolbar's corner covers your own UI. A corner the user drags the toolbar to is stored in
+`localStorage` (`agentation-vue-settings`) and wins over it on every later load; until they
+move it, the toolbar follows whatever the host's default is now. An unknown value is ignored,
+with a warning in the browser console of a dev build. Outside Nuxt, pass the same option to
+the mount: `mountAnnotationToolbar({ toolbarPlacement: 'bottom-left' })`.
 
 The package is published to npmjs; no token or `.npmrc` entry is needed to install it.
 
 Entries, each with declarations: `.` (types, `createInbox`, `renderMarkdown`,
 `resolveTarget`), `./nuxt`, `./vite`, `./mount` (raw source — the consumer's Vite compiles
-it; also `setAnnotationInboxBaseResolver`), `./inbox` (`openFileInbox`, Node), `./mcp` (stdio bin), `./server` (route handler for
+it; also `setAnnotationInboxBaseResolver`, `TOOLBAR_PLACEMENTS`), `./inbox` (`openFileInbox`, Node), `./mcp` (stdio bin), `./server` (route handler for
 non-Nitro servers), `./testing` (storage contract suite), `./vue` (composable and list) with
 `./vue.css` and `./styles/tokens.css`. Host frameworks are optional peers (`nuxt` and
 `@nuxt/kit` for `./nuxt`, `vite` for `./vite`, `vue` for `./vue`, `vitest` for `./testing`):
@@ -621,6 +630,7 @@ modules/annotation-inbox/vite.ts                the dev-server adapter; Storyboo
 modules/annotation-inbox/runtime/server/handler.ts  the Nitro adapter, and who is allowed in
 modules/annotation-inbox/runtime/mount.ts       the toolbar mount, both harnesses
 modules/annotation-inbox/runtime/inbox.ts       storage adapter, component detector, poller, base resolver
+modules/annotation-inbox/runtime/placement.ts   the host's default toolbar placement
 modules/annotation-inbox/runtime/plugin.client.ts  Nuxt's entry into the mount
 dist/                                           the built entries, with declarations
 ai-assets/annotation-inbox/SKILL.md                the agent's operating manual (+ setup.md, troubleshooting.md)
