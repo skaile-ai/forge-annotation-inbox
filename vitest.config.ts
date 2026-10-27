@@ -10,11 +10,14 @@ import { defineConfig } from 'vitest/config'
 // files in its `unit` project, so both entry points run them.
 // `plugin-vue` compiles `src/vue/AnnotationList.vue` for its component spec,
 // which opts into a DOM per file (`@vitest-environment happy-dom`); everything
-// else stays on the node environment.
+// else stays on the node environment. `agentation-vue` is inlined for the same
+// reason: it ships `AgentationVue.vue` as a raw SFC in `dist/`, which Node
+// cannot load, and the toolbar-placement spec runs the library's settings store.
 export default defineConfig({
   plugins: [vue()],
   test: {
     environment: 'node',
     include: ['test/**/*.spec.ts'],
+    server: { deps: { inline: ['agentation-vue'] } },
   },
 })

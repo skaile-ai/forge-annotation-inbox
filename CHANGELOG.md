@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- `toolbarPlacement`, a Nuxt module option and a `mountAnnotationToolbar()` option: the
+  collapsed toolbar toggle's default anchor (`top-left`, `top-center`, `top-right`,
+  `bottom-left`, `bottom-center`, `bottom-right`; `TOOLBAR_PLACEMENTS` from `./mount`).
+  Unset, the toggle stays at `bottom-right`. A corner the user drags the toolbar to is
+  stored and wins on later loads; the host default itself is never stored, so a user who
+  never moved the toolbar follows a host that changes its default. An unknown value is
+  ignored with a console warning in a dev build. Implemented through agentation-vue's
+  exported `setSettingsStorage` (0.3.0). Settings a user saved before this release already
+  hold `bottom-right` and keep it.
+
 ## 2.0.0
 
 Renamed from `@ecsplico/annotation-inbox`; repository moved to `skaile-ai/forge-annotation-inbox`.

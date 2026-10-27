@@ -46,8 +46,8 @@ skipped is a note the human believes you read.
 | Entry | What |
 |---|---|
 | `@skaile/forge-annotation-inbox` | types (`InboxItem`, `InboxStatus`, `InboxTarget`), `createInbox(store)` with `subscribe`, `renderMarkdown`, `resolveTarget`, `Principal` types |
-| `/nuxt` | the Nuxt module: `modules: ['@skaile/forge-annotation-inbox/nuxt']`, options `token`, `base`, `dir`, `authorize`; Nitro hook `annotation-inbox:authorize` |
-| `/vite`, `/mount` | Storybook and plain Vite wiring; `/mount` also exports `setAnnotationInboxBaseResolver(resolve \| null)` |
+| `/nuxt` | the Nuxt module: `modules: ['@skaile/forge-annotation-inbox/nuxt']`, options `token`, `base`, `dir`, `authorize`, `toolbarPlacement` (the toggle's default anchor; a corner the user moved it to wins); Nitro hook `annotation-inbox:authorize` |
+| `/vite`, `/mount` | Storybook and plain Vite wiring: `mountAnnotationToolbar({ base?, toolbarPlacement? })`; `/mount` also exports `setAnnotationInboxBaseResolver(resolve \| null)` and `TOOLBAR_PLACEMENTS` |
 | `/inbox` | `openFileInbox(root)` for Node tools |
 | `/mcp` | the stdio server (`dist/mcp.mjs`, bin `annotation-inbox-mcp`) |
 | `/server` | `handleInboxRequest(inbox, request, { base })` for non-Nitro servers |
