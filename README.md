@@ -210,6 +210,10 @@ Each line answers a failure seen on the way:
   what locate the element — stable class names and `data-*` attributes in the app's markup
   are what make a path readable.
 
+  A host without a tracer can still get element targets: put `path:line` (or
+  `path:line:column`) as the last `>`-separated segment of `vueComponents`, e.g.
+  `Card > frontend/src/components/card.tsx:42`.
+
 A dev proxy coexists as long as its rules leave `/__annotations` alone: the plugin's
 middleware answers the route, and `/api` and friends still reach the backend. On start the
 dev server prints `annotation inbox: /__annotations → .data/annotations/`; the checks under

@@ -13,6 +13,37 @@ import type { Storage } from 'unstorage'
 import type { Inbox, InboxEvent, InboxRequest } from '../modules/annotation-inbox/inbox'
 import type { InboxAnnotation, InboxItem, InboxPayload } from '../modules/annotation-inbox/contract'
 import type { Principal } from '../modules/annotation-inbox/principal'
+import { resolveTarget } from '../modules/annotation-inbox/inbox'
+
+const withChain = (vueComponents: string): InboxAnnotation => ({ id: '1', comment: 'c', url: 'http://x/y', vueComponents } as InboxAnnotation)
+
+describe('resolveTarget', () => {
+  it('accepts file:line and file:line:column as element targets', () => {
+    expect(resolveTarget(withChain('frontend/src/components/x.tsx:42'))).toEqual({
+      kind: 'element',
+      ref: 'frontend/src/components/x.tsx:42',
+      label: 'x.tsx',
+    })
+    expect(resolveTarget(withChain('app/components/Foo.vue:4:2'))).toMatchObject({
+      kind: 'element',
+      ref: 'app/components/Foo.vue:4:2',
+      label: 'Foo.vue',
+    })
+  })
+
+  it('labels with the preceding non-position segment', () => {
+    expect(resolveTarget(withChain('A > B > frontend/src/x.tsx:42'))).toEqual({
+      kind: 'element',
+      ref: 'frontend/src/x.tsx:42',
+      label: 'B',
+    })
+  })
+
+  it('does not treat a bare component name as an element', () => {
+    expect(resolveTarget(withChain('Card')).kind).not.toBe('element')
+    expect(resolveTarget(withChain('A > Card')).kind).not.toBe('element')
+  })
+})
 
 /**
  * What the inbox promises the two people who use it: a reviewer, who clicks

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.2.0
+
+### Added
+
+- A line-only source position now makes an `element` target: the last `vueComponents`
+  segment may be `path:line` as well as the tracer's `path:line:column`. React and plain
+  Vite hosts without a tracer can name the component file (`frontend/src/x.tsx:42`) and
+  get the same target a Vue host gets. A bare component name still does not match; the file
+  part must contain a `.` or `/`.
+
 ## 2.1.0
 
 ### Added

@@ -48,8 +48,12 @@ export const markdownKey = (sessionId: string) => `markdown:${sessionId}.md`
 /** What a session id may look like — see `parsePayload`. */
 const SESSION_ID = /^[a-z0-9]{6,32}$/
 
-/** `app/components/guide/GuidePicker.vue:52:6` — a tracer source position. */
-const SOURCE_POSITION = /^(.+):(\d+):(\d+)$/
+/**
+ * `app/components/guide/GuidePicker.vue:52:6` (tracer) or `frontend/src/x.tsx:42`
+ * (line only) — a source position. The file part must contain a `.` or `/`, so a bare
+ * component name never matches. Lazy file part: `a.tsx:4:2` is file `a.tsx`, not `a.tsx:4`.
+ */
+const SOURCE_POSITION = /^(.*?[./].*?):(\d+)(?::(\d+))?$/
 
 /**
  * The package's one canonical object guard. This is a standalone package with
